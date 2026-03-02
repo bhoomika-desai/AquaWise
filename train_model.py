@@ -69,3 +69,31 @@ def load_water_access(csv_path: Path) -> pd.DataFrame:
 
     return df[["Country Name", "Country Code", "Year", "safe_water_access_pct"]]
 
+ef build_dataset() -> pd.DataFrame:
+    """Merge GDP per capita, access to electricity, and safe water access."""
+    gdp_path = BASE_DIR / "API_NY.GDP.PCAP.CD_DS2_en_csv_v2_46.csv"
+    elec_path = BASE_DIR / "API_EG.ELC.ACCS.ZS_DS2_en_csv_v2_158.csv"
+    water_path = BASE_DIR / "proportion-using-safely-managed-drinking-water.csv"
+
+    gdp = load_world_bank_indicator(gdp_path, "gdp_per_capita")
+    elec = load_world_bank_indicator(elec_path, "access_to_electricity_pct")
+    water = load_water_access(water_path)
+
+    # Merge step by step on Country Code and Year
+    merged = water.merge(
+        gdp[["Country Code", "Year", "gdp_per_capita"]],
+        on=["Country Code", "Year"],
+        how="inner",
+    )
+    merged = merged.merge(
+        elec[["Country Code", "Year", "access_to_electricity_pct"]],
+        on=["Country Code", "Year"],
+        how="inner",
+    )
+
+    # Basic cleaning: drop rows where target is missing
+    merged = merged.dropna(subset=["safe_water_access_pct"])
+
+    return merged
+
+
