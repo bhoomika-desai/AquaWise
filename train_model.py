@@ -69,7 +69,7 @@ def load_water_access(csv_path: Path) -> pd.DataFrame:
 
     return df[["Country Name", "Country Code", "Year", "safe_water_access_pct"]]
 
-ef build_dataset() -> pd.DataFrame:
+def build_dataset() -> pd.DataFrame:
     """Merge GDP per capita, access to electricity, and safe water access."""
     gdp_path = BASE_DIR / "API_NY.GDP.PCAP.CD_DS2_en_csv_v2_46.csv"
     elec_path = BASE_DIR / "API_EG.ELC.ACCS.ZS_DS2_en_csv_v2_158.csv"
