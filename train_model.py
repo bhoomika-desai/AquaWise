@@ -41,3 +41,31 @@ def load_world_bank_indicator(csv_path: Path, value_name: str) -> pd.DataFrame:
     long_df["Year"] = long_df["Year"].astype(int)
 
     return long_df
+
+
+def load_water_access(csv_path: Path) -> pd.DataFrame:
+    """
+    Load the safely managed drinking water dataset from Our World in Data.
+    Expected columns: Entity, Code, Year, Share of the population using safely managed drinking water
+    """
+    df = pd.read_csv(csv_path)
+
+    df = df.rename(
+        columns={
+            "Entity": "Country Name",
+            "Code": "Country Code",
+            "Year": "Year",
+            "Share of the population using safely managed drinking water": "safe_water_access_pct",
+        }
+    )
+
+    # Keep only rows that have an ISO-style country code (3 letters) to avoid aggregates
+    df = df[df["Country Code"].str.len() == 3]
+
+    df["Year"] = pd.to_numeric(df["Year"], errors="coerce").astype(int)
+    df["safe_water_access_pct"] = pd.to_numeric(
+        df["safe_water_access_pct"], errors="coerce"
+    )
+
+    return df[["Country Name", "Country Code", "Year", "safe_water_access_pct"]]
+
