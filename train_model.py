@@ -95,5 +95,25 @@ def build_dataset() -> pd.DataFrame:
     merged = merged.dropna(subset=["safe_water_access_pct"])
 
     return merged
+    def train_and_evaluate():
+    df = build_dataset()
+
+    feature_cols = ["gdp_per_capita", "access_to_electricity_pct"]
+    target_col = "safe_water_access_pct"
+
+    X = df[feature_cols]
+    y = df[target_col]
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    models = {
+        "LinearRegression": make_pipeline(LinearRegression()),
+        "RandomForest": make_pipeline(
+            RandomForestRegressor(n_estimators=300, random_state=42)
+        ),
+    }
+
 
 
