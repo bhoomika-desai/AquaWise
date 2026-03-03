@@ -144,6 +144,19 @@ def build_dataset() -> pd.DataFrame:
             best_model = model
 
     print(f"\nBest model: {best_model_name} (R2 = {best_r2:.3f})")
+    
+# Save best model
+    models_dir = BASE_DIR / "models"
+    models_dir.mkdir(exist_ok=True)
 
+    model_path = models_dir / "best_model.pkl"
+    with open(model_path, "wb") as f:
+        pickle.dump({"model": best_model, "feature_cols": feature_cols}, f)
+
+    print(f"Saved best model to: {model_path}")
+
+
+if __name__ == "__main__":
+    train_and_evaluate()
 
 
