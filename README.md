@@ -107,3 +107,12 @@ streamlit run app.py
 - Economic and infrastructure indicators play a major role in predicting water access  
 
 ---
+## Future Enhancements
+
+- Add more socioeconomic indicators  
+- Hyperparameter tuning  
+- Region-specific models  
+- SHAP-based model explanation  
+- Additional charts in the Streamlit UI  
+
+```
