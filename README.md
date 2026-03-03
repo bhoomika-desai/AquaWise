@@ -97,3 +97,13 @@ notebook/clean_water_forecaster.ipynb
 streamlit run app.py
 
 ```
+---
+
+## Results
+
+- Both GDP and electricity access show strong positive correlation with clean water access  
+- Random Forest performed better than Linear Regression  
+- Data imputation significantly improves model stability  
+- Economic and infrastructure indicators play a major role in predicting water access  
+
+---
