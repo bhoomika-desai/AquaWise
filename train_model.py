@@ -114,6 +114,36 @@ def build_dataset() -> pd.DataFrame:
             RandomForestRegressor(n_estimators=300, random_state=42)
         ),
     }
+    results = {}
+    best_model_name = None
+    best_model = None
+    best_r2 = -np.inf
+
+    print("Number of samples:", len(df))
+    print("Training samples:", len(X_train), "Test samples:", len(X_test))
+
+    for name, model in models.items():
+        model.fit(X_train, y_train)
+        y_pred = model.predict(X_test)
+
+        mse = mean_squared_error(y_test, y_pred)
+        rmse = np.sqrt(mse)
+        mae = mean_absolute_error(y_test, y_pred)
+        r2 = r2_score(y_test, y_pred)
+
+        results[name] = {"RMSE": rmse, "MAE": mae, "R2": r2}
+
+        print(f"\n{name}")
+        print(f"  RMSE: {rmse:.3f}")
+        print(f"  MAE : {mae:.3f}")
+        print(f"  R2  : {r2:.3f}")
+
+        if r2 > best_r2:
+            best_r2 = r2
+            best_model_name = name
+            best_model = model
+
+    print(f"\nBest model: {best_model_name} (R2 = {best_r2:.3f})")
 
 
 
