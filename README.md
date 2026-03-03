@@ -34,3 +34,66 @@ A trained best-performing model is saved as a `.pkl` file and integrated into a 
 - Streamlit application for predictions  
 
 ---
+---
+
+## Streamlit Application
+
+The Streamlit app allows users to select:
+
+- Country  
+- Year  
+
+The model retrieves GDP and electricity data and predicts clean water access.
+
+### Outputs include:
+
+- GDP per capita  
+- Electricity access percentage  
+- Predicted safe drinking water access percentage  
+
+### Run the App
+
+```
+
+streamlit run app.py
+
+```
+
+---
+
+## How to Run Locally
+
+### Clone Repository
+
+```
+
+git clone <repository-url>
+cd AquaWise
+
+```
+
+### Install Dependencies
+
+```
+
+pip install -r requirements.txt
+
+```
+
+### Run Notebook
+
+Open:
+
+```
+
+notebook/clean_water_forecaster.ipynb
+
+```
+
+### Run Streamlit App
+
+```
+
+streamlit run app.py
+
+```
