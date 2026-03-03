@@ -34,6 +34,86 @@ A trained best-performing model is saved as a `.pkl` file and integrated into a 
 - Streamlit application for predictions  
 
 ---
+## Data Sources
+
+### 1. Safely Managed Drinking Water  
+Source: WHO/UNICEF JMP (SDG 6.1.1)
+
+### 2. GDP per Capita (Current US$)  
+Source: World Bank
+
+### 3. Access to Electricity (% of Population)  
+Source: World Bank
+
+---
+
+## Final Variables
+
+### Target  
+- `safe_water_access_pct`
+
+### Features  
+- `gdp_per_capita`  
+- `access_to_electricity_pct`
+
+---
+
+## Methodology
+
+### Data Preparation
+
+- Standardized dataset formatting  
+- Reshaped World Bank datasets from wide to long form  
+- Merged datasets using Country Code and Year  
+- Removed missing target values  
+- Imputed missing features using `KNNImputer`
+<img width="644" height="532" alt="image" src="https://github.com/user-attachments/assets/5982eb77-97f5-486c-8463-1af02587412b" />
+
+
+### Modeling
+
+- Train-test split: 80/20  
+- Pipeline: Imputation → Scaling → Model Training  
+- Models used:  
+  - Linear Regression  
+  - Random Forest Regressor (300 trees)
+
+### Evaluation Metrics
+
+| Model           | RMSE   | MAE    | R²    |
+|----------------|--------|--------|-------|
+| LinearRegression | 17.780 | 13.983 | 0.660 |
+| RandomForest     | 14.781 | 9.771  | 0.765 |
+
+### Model Saving
+
+Best model stored at:
+
+```
+
+models/best_model.pkl
+
+```
+
+---
+
+## Project Structure
+
+```
+
+AquaWise/
+│── data/
+│── models/
+│     └── best_model.pkl
+│── notebook/
+│     └── clean_water_forecaster.ipynb
+│── app.py
+│── train_model.py
+│── requirements.txt
+└── README.md
+
+```
+
 ---
 
 ## Streamlit Application
